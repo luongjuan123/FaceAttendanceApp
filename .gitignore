@@ -1,0 +1,4 @@
+*.dat
+dist/
+build/
+*.tar.gz
