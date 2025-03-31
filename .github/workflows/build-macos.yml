@@ -6,34 +6,11 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v4  # Cập nhật lên v4 cho ổn định
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5  # Cập nhật lên v5
       with:
         python-version: '3.9'
     - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install pyinstaller
-    - name: Download model files
-      run: |
-        curl -O http://dlib.net/files/shape_predictor_5_face_landmarks.dat.bz2
-        curl -O http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2
-        curl -O http://dlib.net/files/mmod_human_face_detector.dat.bz2
-        curl -O http://dlib.net/files/dlib_face_recognition_resnet_model_v1.dat.bz2
-        bunzip2 *.bz2
-    - name: Build with PyInstaller
-      run: |
-        pyinstaller --onefile --windowed \
-          --add-data "shape_predictor_5_face_landmarks.dat:face_recognition_models/models" \
-          --add-data "shape_predictor_68_face_landmarks.dat:face_recognition_models/models" \
-          --add-data "mmod_human_face_detector.dat:face_recognition_models/models" \
-          --add-data "dlib_face_recognition_resnet_model_v1.dat:face_recognition_models/models" \
-          --add-data "$(python3 -c 'import PyQt6; print(PyQt6.__path__[0])')/Qt6/plugins:PyQt6/Qt/plugins" \
-          main.py
-    - name: Upload artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: face-attendance-app-macos
-        path: dist/main
+      run
