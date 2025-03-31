@@ -18,8 +18,9 @@ jobs:
         pip install -r requirements.txt
         pip install pyinstaller
     - name: Download and extract model files
+      shell: cmd
       run: |
-        del *.dat *.bz2 2>nul  # Xóa file cũ (dùng del cho Windows)
+        del *.dat *.bz2 2>nul
         curl -L -O https://web.archive.org/web/20210316161409/http://dlib.net/files/shape_predictor_5_face_landmarks.dat.bz2
         curl -L -O https://web.archive.org/web/20210316161409/http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2
         curl -L -O https://web.archive.org/web/20210316161409/http://dlib.net/files/mmod_human_face_detector.dat.bz2
