@@ -1,0 +1,41 @@
+name: Build Face Attendance App for Windows
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.9'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pyinstaller
+    - name: Download and extract model files
+      run: |
+        del *.dat *.bz2 2>nul  # Xóa file cũ (dùng del cho Windows)
+        curl -L -O https://web.archive.org/web/20210316161409/http://dlib.net/files/shape_predictor_5_face_landmarks.dat.bz2
+        curl -L -O https://web.archive.org/web/20210316161409/http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2
+        curl -L -O https://web.archive.org/web/20210316161409/http://dlib.net/files/mmod_human_face_detector.dat.bz2
+        curl -L -O https://web.archive.org/web/20210316161409/http://dlib.net/files/dlib_face_recognition_resnet_model_v1.dat.bz2
+        bunzip2 *.bz2
+    - name: Build with PyInstaller
+      run: |
+        pyinstaller --onefile --windowed \
+          --add-data "shape_predictor_5_face_landmarks.dat;face_recognition_models/models" \
+          --add-data "shape_predictor_68_face_landmarks.dat;face_recognition_models/models" \
+          --add-data "mmod_human_face_detector.dat;face_recognition_models/models" \
+          --add-data "dlib_face_recognition_resnet_model_v1.dat;face_recognition_models/models" \
+          --add-data "$(python -c 'import PyQt6; print(PyQt6.__path__[0])')\Qt6\plugins;PyQt6\Qt6\plugins" \
+          main.py
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: face-attendance-app-windows
+        path: dist/main.exe
