@@ -6,9 +6,10 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v4
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.9'
     - name: Install dependencies
@@ -16,12 +17,13 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install pyinstaller
-    - name: Download model files
+    - name: Download and extract model files
       run: |
-        wget http://dlib.net/files/shape_predictor_5_face_landmarks.dat.bz2
-        wget http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2
-        wget http://dlib.net/files/mmod_human_face_detector.dat.bz2
-        wget http://dlib.net/files/dlib_face_recognition_resnet_model_v1.dat.bz2
+        rm -f *.dat *.bz2
+        curl -L -O https://web.archive.org/web/20210316161409/http://dlib.net/files/shape_predictor_5_face_landmarks.dat.bz2
+        curl -L -O https://web.archive.org/web/20210316161409/http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2
+        curl -L -O https://web.archive.org/web/20210316161409/http://dlib.net/files/mmod_human_face_detector.dat.bz2
+        curl -L -O https://web.archive.org/web/20210316161409/http://dlib.net/files/dlib_face_recognition_resnet_model_v1.dat.bz2
         bunzip2 *.bz2
     - name: Build with PyInstaller
       run: |
@@ -33,7 +35,7 @@ jobs:
           --add-data "$(python3 -c 'import PyQt6; print(PyQt6.__path__[0])')/Qt6/plugins:PyQt6/Qt/plugins" \
           main.py
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: face-attendance-app-macos
         path: dist/main
