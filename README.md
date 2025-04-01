@@ -7,7 +7,7 @@ GitHub: [FaceAttendanceApp](https://github.com/luongjuan123/FaceAttendanceApp)
 
 ## Build the Application
 
-### Build for Windows
+### Build for Windows(now in trouble)
 - **Workflow:** `.github/workflows/build-windows.yml`
 - **Executable File:** `dist/main.exe`
 
