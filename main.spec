@@ -5,7 +5,7 @@ a = Analysis(
     ['main.py'],
     pathex=[],
     binaries=[],
-    datas=[('shape_predictor_5_face_landmarks.dat', 'face_recognition_models/models'), ('shape_predictor_68_face_landmarks.dat', 'face_recognition_models/models'), ('mmod_human_face_detector.dat', 'face_recognition_models/models'), ('dlib_face_recognition_resnet_model_v1.dat', 'face_recognition_models/models'), ('/home/juan/VENVS/TfEnv/lib/python3.12/site-packages/PyQt6/Qt6/plugins', 'PyQt6/Qt6/plugins')],
+    datas=[('/home/juan/PycharmProjects/PythonProject2/mmod_human_face_detector.dat', 'face_recognition_models/models'), ('/home/juan/PycharmProjects/PythonProject2/shape_predictor_5_face_landmarks.dat', 'face_recognition_models/models'), ('/home/juan/PycharmProjects/PythonProject2/shape_predictor_68_face_landmarks.dat', 'face_recognition_models/models'), ('/home/juan/PycharmProjects/PythonProject2/dlib_face_recognition_resnet_model_v1.dat', 'face_recognition_models/models'), ('/home/juan/VENVS/TfEnv/lib/python3.12/site-packages/PyQt6/Qt6/plugins', 'PyQt6/Qt/plugins')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
