@@ -7,6 +7,9 @@ from attendance import load_known_faces, initialize_attendance
 from dialogs import LoginDialog, AddStudentDialog, MarkAttendanceDialog, AnimatedButton
 from paths import get_class_folder, get_class_attendance_file
 from ui_styles import get_main_stylesheet, get_login_stylesheet, get_add_student_stylesheet, get_mark_attendance_stylesheet
+from openpyxl.styles import Font, PatternFill
+from openpyxl import Workbook
+from openpyxl.styles import Font, PatternFill  # This line is already there, just showing where to add it
 
 TRANSLATIONS = {
     "en": {
@@ -235,10 +238,7 @@ class FaceAttendanceApp(QtWidgets.QWidget):
         self.attendance_group.setLayout(attendance_layout)
         control_layout.addWidget(self.attendance_group)
 
-        control_layout.addStretch()
-        main_layout.addWidget(self.control_frame, 1)
-
-        # Attendance records
+        # Attendance frame
         self.attendance_frame = QtWidgets.QGroupBox(TRANSLATIONS[self.current_language]["attendance_records"])
         attendance_frame_layout = QtWidgets.QVBoxLayout()
         self.attendance_frame.setLayout(attendance_frame_layout)
@@ -247,6 +247,13 @@ class FaceAttendanceApp(QtWidgets.QWidget):
         self.attendance_table.setMinimumHeight(600)
         attendance_frame_layout.addWidget(self.attendance_table)
 
+        # Add Export to Excel button
+        self.export_button = AnimatedButton("Export to Excel", icon_path="excel_icon.png")
+        self.export_button.clicked.connect(self.export_attendance_to_excel)
+        attendance_frame_layout.addWidget(self.export_button)  # Add button to the layout
+
+        control_layout.addStretch()
+        main_layout.addWidget(self.control_frame, 1)
         main_layout.addWidget(self.attendance_frame, 3)
 
         if self.class_combo.count() > 0:
@@ -772,6 +779,100 @@ class FaceAttendanceApp(QtWidgets.QWidget):
 
     def closeEvent(self, event):
         event.accept()
+
+    def export_attendance_to_excel(self):
+        if not self.current_class:
+            QtWidgets.QMessageBox.warning(self, "Error", "Please select a class first.")
+            return
+
+        attendance_file = get_class_attendance_file(self.current_class)
+        try:
+            with open(attendance_file, 'r') as f:
+                data = json.load(f)
+        except:
+            data = {}
+
+        if not data:
+            QtWidgets.QMessageBox.information(self, "Information", "No attendance data to export.")
+            return
+
+        # Tạo workbook và worksheet
+        wb = Workbook()
+        ws = wb.active
+        ws.title = f"{self.current_class} Attendance"
+
+        # Tạo header
+        headers = ["Student ID", "Name"]
+        all_dates = set()
+
+        for student_id, student_data in data.items():
+            all_dates.update(student_data["attendance"].keys())
+
+        sorted_dates = sorted([datetime.datetime.strptime(date, "%Y-%m-%d") for date in all_dates])
+        formatted_dates = [date.strftime("%d/%m/%Y") for date in sorted_dates]
+
+        headers.extend(formatted_dates)
+        ws.append(headers)
+
+        # Định dạng header
+        for col in range(1, len(headers) + 1):
+            ws.cell(row=1, column=col).font = Font(bold=True)
+            ws.cell(row=1, column=col).fill = PatternFill(start_color="FFA500", end_color="FFA500", fill_type="solid")
+
+        # Điền dữ liệu
+        for row, (student_id, student_data) in enumerate(sorted(data.items(), key=lambda x: x[1]["name"].lower()),
+                                                         start=2):
+            ws.cell(row=row, column=1, value=student_id)
+            ws.cell(row=row, column=2, value=student_data["name"])
+
+            for col, date in enumerate(sorted_dates, start=3):
+                date_str = date.strftime("%Y-%m-%d")
+                attended = student_data["attendance"].get(date_str, False)
+                ws.cell(row=row, column=col, value="Present" if attended else "Absent")
+
+                # Tô màu ô
+                fill_color = "00FF00" if attended else "FF0000"
+                ws.cell(row=row, column=col).fill = PatternFill(start_color=fill_color, end_color=fill_color,
+                                                                fill_type="solid")
+
+        # Điều chỉnh độ rộng cột
+        for col in ws.columns:
+            max_length = 0
+            column = col[0].column_letter
+
+            for cell in col:
+                try:
+                    if len(str(cell.value)) > max_length:
+                        max_length = len(str(cell.value))
+                except:
+                    pass
+
+            adjusted_width = (max_length + 2) * 1.2
+            ws.column_dimensions[column].width = adjusted_width
+
+        # Hiển thị hộp thoại lưu file
+        file_dialog = QtWidgets.QFileDialog()
+        file_path, _ = file_dialog.getSaveFileName(
+            self,
+            "Save Excel File",
+            f"{self.current_class}_attendance.xlsx",
+            "Excel Files (*.xlsx)"
+        )
+
+        if file_path:
+            try:
+                wb.save(file_path)
+                QtWidgets.QMessageBox.information(
+                    self,
+                    "Success",
+                    f"Attendance data exported successfully to:\n{file_path}"
+                )
+            except Exception as e:
+                QtWidgets.QMessageBox.critical(
+                    self,
+                    "Error",
+                    f"Failed to save file:\n{str(e)}"
+                )
 
 def main():
     app = QtWidgets.QApplication([])
