@@ -21,7 +21,7 @@ GitHub: [FaceAttendanceApp](https://github.com/luongjuan123/FaceAttendanceApp)
 ### Build for macOS
 - **Workflow:** `.github/workflows/build-macos.yml`
 - **Executable File:** `dist/main`
-- **Download Pre-built Binary:** [macOS Binary](https://drive.google.com/file/d/1dMH0yDGDLSJ3qCvQjHpYlM0LlRSV6-ox/view?usp=drive_link)
+- **Download Pre-built Binary:** [macOS Binary](https://drive.google.com/file/d/1ToMDwk1LMXgbIjicRVhtELnVPrP5W450/view?usp=sharing)
 
 #### How to Run:
 1. Extract `face-attendance-app-macos.zip`.
@@ -35,7 +35,7 @@ GitHub: [FaceAttendanceApp](https://github.com/luongjuan123/FaceAttendanceApp)
 ---
 
 ### Build for Ubuntu
-- **Download Pre-built Binary:** [Ubuntu Binary](https://drive.google.com/file/d/1UQ2MniqlfMueA_o16xDOc5WFI66VOWTF/view?usp=drive_link)
+- **Download Pre-built Binary:** [Ubuntu Binary](https://drive.google.com/file/d/1_dVqmwyCt6iB8FlrUM5F0e7m6B_znBEt/view?usp=sharing)
 
 #### How to Run:
 1. Extract the downloaded archive (e.g., `face-attendance-app-linux.tar.gz`).
