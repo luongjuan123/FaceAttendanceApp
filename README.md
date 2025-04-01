@@ -1,24 +1,54 @@
 # Face Attendance App
 
-A facial recognition-based attendance application built with Python, PyQt6, and Dlib.
+This project provides a face recognition-based attendance system. GitHub Actions is used to build executable files for Windows and macOS. Pre-built binaries for Linux and macOS are also available for download.
+
+## Repository
+GitHub: [FaceAttendanceApp](https://github.com/luongjuan123/FaceAttendanceApp)
+
+## Build the Application
+
+### Build for Windows
+- **Workflow:** `.github/workflows/build-windows.yml`
+- **Executable File:** `dist/main.exe`
+
+#### How to Run:
+1. Extract `face-attendance-app-windows.zip`.
+2. Double-click `main.exe`.
+3. If Windows shows a security warning, click **"More info"** > **"Run anyway"**.
 
 ---
 
-## Introduction
+### Build for macOS
+- **Workflow:** `.github/workflows/build-macos.yml`
+- **Executable File:** `dist/main`
+- **Download Pre-built Binary:** [macOS Binary](https://drive.google.com/file/d/1dMH0yDGDLSJ3qCvQjHpYlM0LlRSV6-ox/view?usp=drive_link)
 
-**Face Attendance App** is a desktop application designed to automate attendance tracking using facial recognition via a webcam. The project leverages deep learning models from Dlib and features a user interface built with PyQt6.
-
-- **Programming Language**: Python 3.9
-- **Main Libraries**: Dlib, PyQt6, face_recognition
-- **Supported OS**: Windows, macOS
+#### How to Run:
+1. Extract `face-attendance-app-macos.tar.gz`.
+2. Run in terminal:
+   ```sh
+   ./main
+   ```
+3. If macOS flags it as an **"unidentified developer"**, go to:
+   - **System Preferences** > **Security & Privacy** > **"Open Anyway"**.
 
 ---
 
-## Requirements
+### Build for Linux
+- **Download Pre-built Binary:** [Linux Binary](https://drive.google.com/file/d/1UQ2MniqlfMueA_o16xDOc5WFI66VOWTF/view?usp=drive_link)
 
-To run or build the application, you need:
+#### How to Run:
+1. Extract the downloaded archive (e.g., `face-attendance-app-linux.tar.gz`).
+2. Run in terminal:
+   ```sh
+   ./main
+   ```
+3. Ensure execution permissions:
+   ```sh
+   chmod +x main
+   ```
+   if needed.
 
-### Python Libraries
-Install the required libraries with:
-```bash
-pip install -r requirements.txt
+---
+
+For any issues, refer to the [documentation](#) or open an [issue](#) on GitHub.
