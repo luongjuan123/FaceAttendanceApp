@@ -34,8 +34,8 @@ GitHub: [FaceAttendanceApp](https://github.com/luongjuan123/FaceAttendanceApp)
 
 ---
 
-### Build for Linux
-- **Download Pre-built Binary:** [Linux Binary](https://drive.google.com/file/d/1UQ2MniqlfMueA_o16xDOc5WFI66VOWTF/view?usp=drive_link)
+### Build for Ubuntu
+- **Download Pre-built Binary:** [Ubuntu Binary](https://drive.google.com/file/d/1UQ2MniqlfMueA_o16xDOc5WFI66VOWTF/view?usp=drive_link)
 
 #### How to Run:
 1. Extract the downloaded archive (e.g., `face-attendance-app-linux.tar.gz`).
