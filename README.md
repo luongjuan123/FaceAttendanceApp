@@ -1,6 +1,6 @@
 # Face Attendance App
 
-This project provides a face recognition-based attendance system. GitHub Actions is used to build executable files for Windows(Not available yet) and macOS. Pre-built binaries for Linux and macOS are also available for download.
+This project provides a face recognition-based attendance system. GitHub Actions is used to build executable files for Windows and macOS. Pre-built binaries for Linux and macOS are also available for download.
 
 ## Repository
 GitHub: [FaceAttendanceApp](https://github.com/luongjuan123/FaceAttendanceApp)
@@ -51,4 +51,9 @@ GitHub: [FaceAttendanceApp](https://github.com/luongjuan123/FaceAttendanceApp)
 
 ---
 
+**Default Login Credentials:**
+- **Username:** `admin`
+- **Password:** `admin`
+
 For any issues, refer to the [documentation](#) or open an [issue](#) on GitHub.
+
