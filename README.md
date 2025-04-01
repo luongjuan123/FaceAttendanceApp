@@ -24,7 +24,7 @@ GitHub: [FaceAttendanceApp](https://github.com/luongjuan123/FaceAttendanceApp)
 - **Download Pre-built Binary:** [macOS Binary](https://drive.google.com/file/d/1dMH0yDGDLSJ3qCvQjHpYlM0LlRSV6-ox/view?usp=drive_link)
 
 #### How to Run:
-1. Extract `face-attendance-app-macos.tar.gz`.
+1. Extract `face-attendance-app-macos.zip`.
 2. Run in terminal:
    ```sh
    ./main
