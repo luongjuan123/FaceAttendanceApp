@@ -55,5 +55,5 @@ GitHub: [FaceAttendanceApp](https://github.com/luongjuan123/FaceAttendanceApp)
 - **Username:** `admin`
 - **Password:** `admin`
 
-For any issues, refer to the [documentation](#) or open an [issue](#) on GitHub.
+
 
